@@ -5,6 +5,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{4B141AF4-2396-40B0-A6B0-A27948DA83F1}"
 	ProjectSection(SolutionItems) = preProject
 		scripts\com-register.cmd = scripts\com-register.cmd
+		scripts\hello-world.config = scripts\hello-world.config
+		scripts\hello-world.vbs = scripts\hello-world.vbs
 	EndProjectSection
 EndProject
 Global
