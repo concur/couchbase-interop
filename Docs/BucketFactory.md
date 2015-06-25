@@ -4,6 +4,8 @@
 * **Interface UUID**: 267DA2E9-727D-4D63-A9D6-D2391331A738
 * **Interface Type**: Dual
 
+COM factory class used to configure underlying .NET SDK, manage connections to Couchbase clusters and buckets. Multiple instances of this COM facotry class can be used to manage the same singleton cluster and bucket instances inside the COM SDK.
+
 ````
 IBucketFactory {
         [id(0x00000001)]
@@ -68,7 +70,7 @@ Check whether a singleton bucket object with a specified name is already open in
 * **bucketName**: Name of the Couchbase bucket to check.
 
 ##### return: #####
-True if underlying singleton bucket object is open; otherwise False.
+*True* if underlying singleton bucket object is open; otherwise *False*.
 
 
 ### IsClusterOpen ###
@@ -78,7 +80,7 @@ Check whether a singleton cluster object with a specified name is already open i
 * **clusterName**: Name of the Couchbase cluster to check.
 
 ##### return: #####
-True if underlying singleton cluster object is open; otherwise False.
+*True* if underlying singleton cluster object is open; otherwise *False*.
 
 
 ### CloseBucket ###

@@ -4,6 +4,10 @@
 * **Interface UUID**: 46F8E1EC-9AA0-491D-8126-01C7454C549B
 * **Interface Type**: Dual
 
+COM API to manage internal logs of the undelying Couchbase .NET SDK. To get full logs from the .NET SDK, this class should be used on application startup before [BucketFactory](BucketFactory.md) is used.
+
+The logging is built on top of [NLog](http://nlog-project.org/) library and uses [File](https://github.com/nlog/nlog/wiki/File-target) logging target. Please refer to [NLog Wiki](http://github.com/nlog/nlog/wiki) for detailed explanation of the properties and their usage.
+
 ````
 ILogConfig {
         [id(0x00000001), propget]
