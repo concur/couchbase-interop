@@ -14,8 +14,36 @@ This project requires several [NuGet](https://www.nuget.org/) packages as depend
 For example if Couchbase.NetClient.dll references Common.Logging version 3.0.0, the Couchbase.ComClient can not reference Common.Logging version 3.1.0.
 
 ## Deployment ##
-The easiest deployment model is to register Couchbase.ComClient and all its dependencies into [GAC](https://msdn.microsoft.com/en-us/library/yf1d93sz.aspx) through [Gacutil](https://msdn.microsoft.com/en-us/library/ex0ss12c.aspx) tool. After that you can register the COM interfaces with [Regasm](https://msdn.microsoft.com/en-us/library/tzat5yw6.aspx). This deployment model will ensure that the COM object assembly and its dependencies are always available and can be easily updated at any time. 
+The easiest deployment model is to register Couchbase.ComClient and all its dependencies into [GAC](https://msdn.microsoft.com/en-us/library/yf1d93sz.aspx) through [Gacutil](https://msdn.microsoft.com/en-us/library/ex0ss12c.aspx) tool. After that you can register the COM interfaces with [Regasm](https://msdn.microsoft.com/en-us/library/tzat5yw6.aspx). This deployment model will ensure that the COM object assembly and its dependencies are always available and can be easily updated at any time.
 
 Alternatively you can avoid usage of GAC if you use **/codebase** argument in Regasm. In this case make sure that the path you used to register COM components contains all required dependencies in their correct versions and that it's accessible by consuming applications.
 
 Example script with GAC deployment: [com-register.cmd](Src/scripts/com-register.cmd)
+
+## Usage Example ##
+````
+dim logConfig, factory, bucket, result
+
+set logConfig = CreateObject("Couchbase.ComClient.LogConfig")
+logConfig.FileName = "example.log"
+call logConfig.SetupLogging()
+set logConfig = nothing
+
+set factory = CreateObject("Couchbase.ComClient.BucketFactory")
+call factory.ConfigureCluster("example.config", "local")
+set bucket = factory.GetBucket("default")
+
+set result = bucket.Upsert("testkey", "Hello World!", 60)
+call WScript.StdOut.WriteLine("Upsert call success: " & result.Success)
+set result = nothing
+
+call factory.CloseBucket("default")
+set bucket = nothing
+factory.CloseCluster("local")
+set factory = nothing
+````
+## COM API ##
+* [LogConfig](Docs/LogConfig.md) - Configuration of underlying .NET SDK logging
+* [BucketFactory](Docs/BucketFactory.md) - Management of Couchbase clusters and buckets
+* [BucketWrapper](Docs/BucketWrapper.md) - Executing operations on Couchbase buckets
+* [OperationResultWrapper](Docs/OperationResultWrapper.md) - Reading operation results

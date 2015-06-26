@@ -28,42 +28,42 @@ IOperationResultWrapper {
 ### Value ###
 Value associated with executed operation. In case that the executed operation did not have any value associated with is (for example Remove), the value of this property will be uninitialized.
 
-##### return: #####
+##### get: #####
 *Variant* containing the Couchbase operation value. I.E. value stored in couchbase when Get operation is executed.
 
 
 ### Success ###
 Indicates whether the opration was successful.
 
-##### return: #####
+##### get: #####
 *True* if the opertation was successful; *False* otherwise.
 
 
 ### Status ###
 Detailed operation status code. This may indicate what exactly failed if operation was not successful. For more information please refer to the [.NET SDK Response Status documentation](http://docs.couchbase.com/sdk-api/couchbase-net-client-2.1.0/?topic=html/6a25fcd7-8827-5150-a120-7219769e482b.htm).
 
-##### return: #####
+##### get: #####
 Numeric representation of Couchbase result code.
 
 
 ### Message ###
 If the operation was not successful, the property getter contains a message with short explanation.
 
-##### return: #####
+##### get: #####
 Reason for operation failure.
 
 
 ### ExceptionData ###
 If there was an exception associated with this operation result in .NET SDK, the full exception data will be available in this property getter.
 
-##### return: #####
+##### get: #####
 Text containing exception description and stack trace, including any inner exceptions.
 
 
 ### Cas ###
 Get the "Check and Set" number for optimistic locking. This number can be used for *RemoveCas*, *ReplaceCas* and *UpsertCas* methods on [bucket wrapper](BucketWrapper.md).
 
-##### return: #####
+##### get: #####
 The numerical "Check and Set" value for Couchbase optimistic locking.
 
 

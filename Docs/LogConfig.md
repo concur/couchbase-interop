@@ -62,3 +62,146 @@ ILogConfig {
         void SetupLogging();
 }
 ````
+
+
+### ArchiveAboveSize ###
+Size in bytes above which log files will be automatically archived.
+
+##### put #####
+A number of bytes after which current log file is archived and new log file is open
+
+##### get #####
+Default value is -1, which means file size limit is not enabled
+
+
+### ArchiveEvery ###
+Indicates whether to automatically archive log files every time the specified time passes.
+Available values are:
+* Day - Archive daily.
+* Hour - Archive every hour.
+* Minute - Archive every minute.
+* Month - Archive every month.
+* None - Don't archive based on time.
+* Year - Archive every year.
+
+##### put #####
+Name of the log archive period
+
+##### get #####
+Default value is *None*, which means file archiving based on time is disabled
+
+
+### ArchiveNumbering ###
+Way file archives are numbered.
+Available values are:
+* Rolling - The most recent is always #0 then #1, ..., #N
+* Sequence - The most recent archive has the highest number.
+* Date - Name archive files based on date
+
+##### put #####
+Name of the archive numbering style
+
+##### get #####
+Default value is *Sequence*
+
+
+### DeleteOldFileOnStartup ###
+Indicates whether to delete old log file on startup.
+
+##### put #####
+*True* if you want old logs automatically deleted on startup; *False* otherwise
+
+##### get #####
+Default value is *False*
+
+
+### EnableFileDelete ###
+Indicates whether to enable log file(s) to be deleted.
+
+##### put #####
+*True* if you want to enable logging system to remove log files (old log files, archived logs); *False* otherwise
+
+##### get #####
+Default value is *True*
+
+
+### Encoding ###
+Log file encoding.
+
+##### put #####
+File encoding name like "utf-8", "ascii" or "utf-16"
+
+##### get #####
+Default encoding used is obtained from *Encoding.Default*. The actual value may vary based on your system.
+
+
+### FileName ###
+Name of the file to write to. This property supports [NLog Layout](https://github.com/nlog/nlog/wiki/Layout-renderers).
+
+##### put #####
+Path and name of the log file output
+
+##### get #####
+Default file name is "Couchbase.ComClient.txt", which mean the file is created in the current application working directory.
+
+
+### Footer ###
+Log file footer.
+
+##### put #####
+String representing [NLog Layout](https://github.com/nlog/nlog/wiki/Layout-renderers) with the log file footer
+
+##### get #####
+Default log file footer is empty
+
+
+### Header ###
+Log file header.
+
+##### put #####
+String representing [NLog Layout](https://github.com/nlog/nlog/wiki/Layout-renderers) with the log file header
+
+##### get #####
+Default file header is empty
+
+
+### Layout ###
+Log format to be used in the file.
+
+##### put #####
+String representing [NLog Layout](https://github.com/nlog/nlog/wiki/Layout-renderers) with the log format
+
+##### get #####
+Default value for the log format is "${longdate}|${level:uppercase=true}|${logger}|${message}"
+
+
+### MaxArchiveFiles ###
+Maximum number of archive files that should be kept
+
+##### put #####
+Requested number of archive files
+
+##### get #####
+Default number of archive files is 9
+
+
+### MinLogLevel ###
+Cut-off log level of messages to be written into the log file.
+Available log levels:
+* Off
+* Fatal
+* Error
+* Warn
+* Info
+* Debug
+* Trace
+
+##### put #####
+Name of the minimal log level to be written into log file. All logs with this or higher log level will be written. (I.E. If *MinLogLevel* is set to *Warn*, all log messages with levels *Fatal*, *Error* and *Warn* will be written into the log file)
+
+##### get #####
+Default value of minimal log severity is *Info*
+
+
+### SetupLogging ###
+Setup logging of the underlying .NET SDK based on current state of properties of this class. This should be done on application start before you start working with [BucketFactory](BucketFactory.md) object.

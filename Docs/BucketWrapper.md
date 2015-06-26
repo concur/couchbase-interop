@@ -140,3 +140,111 @@ Removes a stored value for a given key from Couchbase.
 
 ##### return: #####
 A pointer to [operation result wrapper COM object](OperationResultWrapper.md) represented as [IOperationResultWrapper](OperationResultWrapper.md) dual COM interface.
+
+
+### RemoveCas ###
+Removes a stored value for a given key from Couchbase, if the *cas* value in Couchbase matches supplied value.
+
+##### params: #####
+* **key**: The key to remove from Couchbase
+* **cas**: The CAS (Check and Set) value for optimistic concurrency.
+
+##### return: #####
+A pointer to [operation result wrapper COM object](OperationResultWrapper.md) represented as [IOperationResultWrapper](OperationResultWrapper.md) dual COM interface.
+
+
+### Replace ###
+Replaces a stored value for a given key if it exists, otherwise fails. 
+
+##### params: #####
+* **key**: The unique key for indexing.
+* **value**: The value for the key.
+* **expiration**: The time-to-live (ttl) for the key in seconds. This parameter is optional. Default value is 0 (no expiration).
+
+##### return: #####
+A pointer to [operation result wrapper COM object](OperationResultWrapper.md) represented as [IOperationResultWrapper](OperationResultWrapper.md) dual COM interface.
+
+
+### ReplaceCas ###
+Replaces a stored value for a given key if it exists and it's *cas* matches the suplied value, otherwise fails.
+
+##### params: #####
+* **key**: The unique key for indexing.
+* **value**: The value for the key.
+* **cas**: The CAS (Check and Set) value for optimistic concurrency.
+* **expiration**: The time-to-live (ttl) for the key in seconds. This parameter is optional. Default value is 0 (no expiration).
+
+##### return: #####
+A pointer to [operation result wrapper COM object](OperationResultWrapper.md) represented as [IOperationResultWrapper](OperationResultWrapper.md) dual COM interface.
+
+
+### Upsert ###
+Inserts or replaces an existing stored value into Couchbase Server.
+
+##### params: #####
+* **key**: The unique key for indexing.
+* **value**: The value for the key. 
+* **expiration**: The time-to-live (ttl) for the key in seconds. This parameter is optional. Default value is 0 (no expiration). 
+
+##### return: #####
+A pointer to [operation result wrapper COM object](OperationResultWrapper.md) represented as [IOperationResultWrapper](OperationResultWrapper.md) dual COM interface.
+
+
+### UpsertCas ###
+Inserts or replaces an existing stored value into Couchbase Server, if the *cas* value in Couchbase matches supplied value.
+##### params: #####
+* **key**: The unique key for indexing.
+* **value**: The value for the key.
+* **cas**: The CAS (Check and Set) value for optimistic concurrency.
+* **expiration**: The time-to-live (ttl) for the key in seconds. This parameter is optional. Default value is 0 (no expiration). 
+
+##### return: #####
+A pointer to [operation result wrapper COM object](OperationResultWrapper.md) represented as [IOperationResultWrapper](OperationResultWrapper.md) dual COM interface.
+
+
+### Append ###
+Appends a value to a give key. 
+
+##### params: #####
+* **key**: The key to append too.
+* **value**: The value to append to the key.
+
+##### return: #####
+A pointer to [operation result wrapper COM object](OperationResultWrapper.md) represented as [IOperationResultWrapper](OperationResultWrapper.md) dual COM interface.
+
+
+### Prepend ###
+Prepends a value to a give key. 
+
+##### params: #####
+* **key**: The key to Prepend too.
+* **value**: The value to prepend to the key.
+
+##### return: #####
+A pointer to [operation result wrapper COM object](OperationResultWrapper.md) represented as [IOperationResultWrapper](OperationResultWrapper.md) dual COM interface.
+
+
+### Increment ###
+Increments the value of a key by the *delta*. If the key doesn't exist, it will be created and seeded with the *initial* value.
+
+##### params: #####
+* **key**: The key to us for the counter.
+* **delta**: The number to increment the key by. This parameter is optional. Default value is 1.
+* **initial**: The initial value to use. If the key doesn't exist, this value will be returned. This parameter is optional. Default value is 1.
+* **expiration**: The time-to-live (ttl) for the key in seconds. This parameter is optional. Default value is 0 (no expiration).
+
+##### return: #####
+A pointer to [operation result wrapper COM object](OperationResultWrapper.md) represented as [IOperationResultWrapper](OperationResultWrapper.md) dual COM interface.
+
+
+### Decrement ###
+Decrements the value of a key by the *delta*. If the key doesn't exist, it will be created and seeded with the *initial* value. 
+
+##### params: #####
+* **key**: The key to us for the counter.
+* **delta**: The number to decrement the key by. This parameter is optional. Default value is 1.
+* **initial**: The initial value to use. If the key doesn't exist, this value will be returned. This parameter is optional. Default value is 1.
+* **expiration**: The time-to-live (ttl) for the key in seconds. This parameter is optional. Default value is 0 (no expiration).
+
+##### return: #####
+A pointer to [operation result wrapper COM object](OperationResultWrapper.md) represented as [IOperationResultWrapper](OperationResultWrapper.md) dual COM interface.
