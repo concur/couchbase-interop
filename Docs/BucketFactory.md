@@ -6,7 +6,7 @@
 
 COM factory class used to configure underlying .NET SDK, manage connections to Couchbase clusters and buckets. Multiple instances of this COM facotry class can be used to manage the same singleton cluster and bucket instances inside the COM SDK.
 
-````
+```chapel
 IBucketFactory {
         [id(0x00000001)]
         void ConfigureCluster(
@@ -26,7 +26,7 @@ IBucketFactory {
         [id(0x00000006)]
         void CloseCluster([in] BSTR clusterName);
 }
-````
+```
 
 
 ### ConfigureCluster ###

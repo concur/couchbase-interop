@@ -8,7 +8,7 @@ COM API to manage internal logs of the undelying Couchbase .NET SDK. To get full
 
 The logging is built on top of [NLog](http://nlog-project.org/) library and uses [File](https://github.com/nlog/nlog/wiki/File-target) logging target. Please refer to [NLog Wiki](http://github.com/nlog/nlog/wiki) for detailed explanation of the properties and their usage.
 
-````
+```chapel
 ILogConfig {
         [id(0x00000001), propget]
         int64 ArchiveAboveSize();
@@ -61,7 +61,7 @@ ILogConfig {
         [id(0x0000000d)]
         void SetupLogging();
 }
-````
+```
 
 
 ### ArchiveAboveSize ###

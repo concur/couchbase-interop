@@ -7,7 +7,7 @@ Wraps the bucket classes from .NET SDK and expose them with COM interface. Insta
 
 All methods using *expiration* parameter will interpret value 0 as no expiration. Expiration values between 1 and 2592000 are interpreted as number of seconds the value has to live. Expirations over 2592000 (the amount of seconds in 30 days) are interpreted as a UNIX timestamp of the date at which the value expires. See Couchbase documentation section [about expiration](http://docs.couchbase.com/couchbase-devguide-2.5/#about-document-expiration).
 
-````
+```chapel
 IBucketWrapper {
         [id(0x00000001)]
         VARIANT_BOOL Exists([in] BSTR key);
@@ -75,7 +75,7 @@ IBucketWrapper {
                         [in, optional, defaultvalue(1)] uint64 initial, 
                         [in, optional, defaultvalue(0)] unsigned long expiration);
 }
-````
+```
 
 
 ### Exists ###

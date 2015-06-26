@@ -21,7 +21,7 @@ Alternatively you can avoid usage of GAC if you use **/codebase** argument in Re
 Example script with GAC deployment: [com-register.cmd](Src/scripts/com-register.cmd)
 
 ## Usage Example ##
-````
+```vbs
 dim logConfig, factory, bucket, result
 
 set logConfig = CreateObject("Couchbase.ComClient.LogConfig")
@@ -41,7 +41,7 @@ call factory.CloseBucket("default")
 set bucket = nothing
 factory.CloseCluster("local")
 set factory = nothing
-````
+```
 ## COM API ##
 * [LogConfig](Docs/LogConfig.md) - Configuration of underlying .NET SDK logging
 * [BucketFactory](Docs/BucketFactory.md) - Management of Couchbase clusters and buckets

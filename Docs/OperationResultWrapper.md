@@ -5,7 +5,7 @@
 
 Wraps the operation result classes from .NET SDK and expose them with COM interface. Instances of this object can not be created directly by user. They are created by COM SDK as a result of [BucketWrapper](BucketWrapper.md) object methods.
 
-````
+```chapel
 IOperationResultWrapper {
         [id(00000000), propget]
         VARIANT Value();
@@ -22,7 +22,7 @@ IOperationResultWrapper {
         [id(0x00000006)]
         VARIANT_BOOL ShouldRetry();
 }
-````
+```
 
 
 ### Value ###
