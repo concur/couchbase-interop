@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Couchbase.ComClient")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Concur")]
+[assembly: AssemblyCompany("Concur Technologies, Inc.")]
 [assembly: AssemblyProduct("Couchbase.ComClient")]
-[assembly: AssemblyCopyright("Copyright © Concur 2015")]
+[assembly: AssemblyCopyright("Copyright © Concur Technologies, Inc. 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
