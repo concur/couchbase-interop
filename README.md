@@ -1,7 +1,7 @@
-Couchbase COM SDK
+couchbase-interop
 =================
 ## Overview ##
-The **couchbase-interop** is a project to wrap [Official Couchbase .NET SDK](https://github.com/couchbase/couchbase-net-client) with classes providing [COM](https://msdn.microsoft.com/en-us/library/ms680573.aspx) interface. The main goal is to make Couchbase available for [Classic ASP](https://msdn.microsoft.com/en-us/library/aa286483.aspx) applications. However any legacy application capable of consuming COM objects can benefit from this SDK.
+This project wraps [Official Couchbase .NET SDK](https://github.com/couchbase/couchbase-net-client) with classes providing [COM](https://msdn.microsoft.com/en-us/library/ms680573.aspx) interface. The main goal is to make Couchbase available for [Classic ASP](https://msdn.microsoft.com/en-us/library/aa286483.aspx) applications. However any legacy application capable of consuming COM objects can benefit from this SDK.
 
 Due to missing support for JSON format in legacy applications, the COM API does not offer full range of methods like typical Couchbase 2.0 SDK. Instead it's focusing on the basic Memcached operations which can be easily used by all legacy applications.
 
