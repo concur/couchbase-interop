@@ -17,8 +17,12 @@ REM    limitations under the License.
 REM
 REM ---------------------------------------------------------------------------
 
-REM Either run this from Vistual Studio command line, or set correct environment path for Gacutil first
+REM Either run this from Vistual Studio command line, or set correct environment path for Gacutil and MSBuild tools first
 REM If you do not have Gacutil tool, you can download it as part of Winsows SDK
+
+IF NOT EXIST ..\Couchbase.ComClient\bin\Release\Couchbase.ComClient.dll (
+    MSBuild.exe ..\Couchbase.ComClient\Couchbase.ComClient.csproj /t:Rebuild /p:Configuration=Release
+)
 
 echo on
 
