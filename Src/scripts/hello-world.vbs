@@ -18,7 +18,15 @@
 
 dim logConfig, factory, bucket, result
 
+on error resume next
 set logConfig = CreateObject("Couchbase.ComClient.LogConfig")
+if err then
+    call WScript.StdOut.WriteLine(err.Description)
+    call WScript.StdOut.WriteLine("Make sure the COM components are registered correctly.")
+    call WScript.Quit
+end if
+on error goto 0
+
 logConfig.MinLogLevel = "Debug"
 logConfig.FileName = "hello-world.log"
 logConfig.Encoding = "utf-8"
