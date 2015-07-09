@@ -28,7 +28,7 @@ echo on
 
 Gacutil.exe /i ..\Couchbase.ComClient\bin\Release\Common.Logging.dll
 Gacutil.exe /i ..\Couchbase.ComClient\bin\Release\Common.Logging.Core.dll
-Gacutil.exe /i ..\Couchbase.ComClient\bin\Release\Common.Logging.NLog31.dll
+Gacutil.exe /i ..\Couchbase.ComClient\bin\Release\Common.Logging.NLog32.dll
 Gacutil.exe /i ..\Couchbase.ComClient\bin\Release\NLog.dll
 Gacutil.exe /i ..\Couchbase.ComClient\bin\Release\Newtonsoft.Json.dll
 Gacutil.exe /i ..\Couchbase.ComClient\bin\Release\Couchbase.NetClient.dll

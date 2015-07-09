@@ -44,6 +44,8 @@ namespace Couchbase.ComClient
 		void CloseBucket(string bucketName);
 		[DispId(6)]
 		void CloseCluster(string clusterName);
+		[DispId(7)]
+		string Version { get; }
 	}
 
 	[Guid("FD25BAA3-3F34-4C97-9621-3C384E1F4591")]
@@ -62,7 +64,9 @@ namespace Couchbase.ComClient
 				Buckets = new List<IBucket>();
 			}
 		}
-		
+
+		private static readonly string s_version = typeof(BucketFactory).Assembly.GetName().Version.ToString();
+
 		private static ReaderWriterLockSlim s_lock = new ReaderWriterLockSlim();
 		private static Dictionary<string, ClusterInfo> s_clusters = new Dictionary<string, ClusterInfo>();
 		private static Dictionary<string, IBucket> s_buckets = new Dictionary<string, IBucket>();
@@ -268,6 +272,11 @@ namespace Couchbase.ComClient
 				}
 				catch { }
 			}
+		}
+
+		public string Version
+		{
+			get { return s_version; }
 		}
 	}
 }

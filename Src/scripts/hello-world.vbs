@@ -34,6 +34,8 @@ call logConfig.SetupLogging()
 set logConfig = nothing
 
 set factory = CreateObject("Couchbase.ComClient.BucketFactory")
+call WScript.StdOut.WriteLine("Couchbase.ComClient version: " & factory.Version)
+
 call factory.ConfigureCluster("hello-world.config", "local")
 set bucket = factory.GetBucket("default")
 
