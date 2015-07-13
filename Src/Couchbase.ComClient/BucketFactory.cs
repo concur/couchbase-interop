@@ -253,6 +253,7 @@ namespace Couchbase.ComClient
 					{
 						s_buckets.Remove(bucket.Name);
 					}
+					s_clusters.Remove(clusterName);
 				}
 			}
 			finally
