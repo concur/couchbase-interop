@@ -9,8 +9,6 @@ All methods using *expiration* parameter will interpret value 0 as no expiration
 
 ```chapel
 IBucketWrapper {
-        [id(0x00000001)]
-        VARIANT_BOOL Exists([in] BSTR key);
         [id(0x00000002)]
         IOperationResultWrapper* Get([in] BSTR key);
         [id(0x00000003)]
@@ -76,16 +74,6 @@ IBucketWrapper {
                         [in, optional, defaultvalue(0)] unsigned long expiration);
 }
 ```
-
-
-### Exists ###
-Checks for the existance of a given key.
-
-##### params: #####
-* **key**: Key to check.
-
-##### return: #####
-*True* if the key exists; *False* otherwise.
 
 
 ### Get ###

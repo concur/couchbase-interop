@@ -26,8 +26,6 @@ namespace Couchbase.ComClient
 	[InterfaceType(ComInterfaceType.InterfaceIsDual)]
 	public interface IBucketWrapper
 	{
-		[DispId(1)]
-		bool Exists(string key);
 		[DispId(2)]
 		OperationResultWrapper Get(string key);
 		[DispId(3)]
@@ -67,11 +65,6 @@ namespace Couchbase.ComClient
 		internal BucketWrapper(IBucket bucket)
 		{
 			m_bucket = bucket;
-		}
-
-		public bool Exists(string key)
-		{
-			return m_bucket.Exists(key);
 		}
 
 		public OperationResultWrapper Get(string key)
