@@ -25,7 +25,6 @@ namespace Couchbase.ComClient.Test
 	public class BucketFactoryTest
 	{
 		private static IBucketFactory _iBf;
-		private static IBucketWrapper _iBw;
 
 		[ClassInitialize()]
 		public static void TestInitialize(TestContext context)
@@ -33,7 +32,6 @@ namespace Couchbase.ComClient.Test
 			//this ensures tests don't mess with each other
 			_iBf = new BucketFactory();
 			_iBf.ConfigureCluster("Couchbase.ComClient.Test.dll.config", "local");
-			_iBw = _iBf.GetBucket("default");
 		}
 
 		[ClassCleanup()]
@@ -43,20 +41,71 @@ namespace Couchbase.ComClient.Test
 			_iBf.CloseCluster("local");
 		}
 
+		[TestMethod]
+		public void TestCluster()
+		{
+			_iBf.ConfigureCluster("Couchbase.ComClient.Test.dll.config", "local");
+			Assert.IsTrue(_iBf.IsClusterOpen("local"), "Cluster local was not opened");
+			_iBf.CloseCluster("local");
+			Assert.IsFalse(_iBf.IsClusterOpen("local"), "Cluster local was opened");
+		}
 
 		[TestMethod]
-		[ExpectedException(typeof(System.ArgumentException))]
-		public void TestException()
+		public void TestCluster2()
+		{
+			Assert.IsFalse(_iBf.IsClusterOpen("nonexist"), "Cluster nonexist was opened");
+			_iBf.CloseCluster("nonexist");
+			Assert.IsFalse(_iBf.IsClusterOpen("nonexist"), "Cluster nonexist was opened");
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(ArgumentException))]
+		public void TestCluster3()
 		{
 			_iBf.ConfigureCluster("non_existing.config", "XXX");
 		}
 
 		[TestMethod]
-		public void TestConfigureCluster()
+		public void TestBucket()
 		{
-			Assert.IsTrue(_iBf.IsClusterOpen("local"), "Cluster local was not opened");
+			IBucketWrapper bucket = _iBf.GetBucket("default", "local");
+			Assert.IsNotNull(bucket);
+			Assert.IsTrue(_iBf.IsBucketOpen("default"), "Bucket default was not opened");
+			_iBf.CloseBucket("default");
+			Assert.IsFalse(_iBf.IsBucketOpen("default"), "Bucket default was opened");
+			_iBf.CloseBucket("default");
+			Assert.IsFalse(_iBf.IsBucketOpen("default"), "Bucket default was opened");
+		}
+
+
+		[TestMethod]
+		public void TestBucket2()
+		{
+			Assert.IsFalse(_iBf.IsBucketOpen("nonexist"), "Bucket nonexist was opened");
+			_iBf.CloseBucket("nonexist");
+			Assert.IsFalse(_iBf.IsBucketOpen("nonexist"), "Bucket nonexist was opened");
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidOperationException), "Cluster 'nonexist' was not configured. Use the ConfigureCluster method first")]
+		public void TestBucket3()
+		{
+			_iBf.GetBucket("default", "nonexist");
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(AggregateException), "Could not bootstrap - check inner exceptions for details.")]
+		public void TestBucket4()
+		{
+			_iBf.GetBucket("nonexist");
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidOperationException), "There are no known clusters. Use the ConfigureCluster method first.")]
+		public void TestBucket5()
+		{
 			_iBf.CloseCluster("local");
-			Assert.IsFalse(_iBf.IsClusterOpen("local"), "Cluster local was opened");
+			_iBf.GetBucket("default");
 		}
 	}
 }

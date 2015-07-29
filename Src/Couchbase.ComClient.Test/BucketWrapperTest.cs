@@ -231,10 +231,10 @@ namespace Couchbase.ComClient.Test
 		{
 			string key = "remove_1" + Environment.TickCount;
 			_oRw = _iBw.Remove(key);
-			Assert.IsFalse(_oRw.Success, "Unexpected succes of insert operation!");
-			Assert.AreEqual(1, _oRw.Status, "Unexpected status of insert operation!");
+			Assert.IsFalse(_oRw.Success, "Unexpected succes of remove operation!");
+			Assert.AreEqual(1, _oRw.Status, "Unexpected status of remove operation!");
 			Assert.IsNotNull(_oRw.Message, "Message was null!");
-			Assert.AreEqual(null, _oRw.Value, "Unexpected value of insert operation!");
+			Assert.AreEqual(null, _oRw.Value, "Unexpected value of remove operation!");
 		}
 
 		[TestMethod]
@@ -244,11 +244,69 @@ namespace Couchbase.ComClient.Test
 			string value = "asd";
 			_iBw.Insert(key, value, 60);
 			_oRw = _iBw.Remove(key);
-			Assert.IsTrue(_oRw.Success, "Unexpected succes of insert operation!");
-			Assert.AreEqual(0, _oRw.Status, "Unexpected status of insert operation!");
+			Assert.IsTrue(_oRw.Success, "Unexpected succes of remove operation!");
+			Assert.AreEqual(0, _oRw.Status, "Unexpected status of remove operation!");
 			Assert.IsNotNull(_oRw.Message, "Message was null!");
-			Assert.AreEqual(null, _oRw.Value, "Unexpected value of insert operation!");
-			Assert.AreEqual(null, _iBw.Get(key).Value, "Unexpected value of insert operation!");
+			Assert.AreEqual(null, _oRw.Value, "Unexpected value of remove operation!");
+			Assert.AreEqual(null, _iBw.Get(key).Value, "Unexpected value of remove operation!");
+		}
+
+		[TestMethod]
+		public void TestBucketRemove3()
+		{
+			string key = "remove_3" + Environment.TickCount;
+			var value = 85;
+			_iBw.Insert(key, value, 60);
+			_oRw = _iBw.Remove(key);
+			Assert.IsTrue(_oRw.Success, "Unexpected succes of remove operation!");
+			Assert.AreEqual(0, _oRw.Status, "Unexpected status of remove operation!");
+			Assert.IsNotNull(_oRw.Message, "Message was null!");
+			Assert.AreEqual(null, _oRw.Value, "Unexpected value of remove operation!");
+			Assert.AreEqual(null, _iBw.Get(key).Value, "Unexpected value of remove operation!");
+		}
+
+		[TestMethod]
+		public void TestBucketRemoveCas()
+		{
+			string key = "remove_cas_1" + Environment.TickCount;
+			string value = "value1";
+			_iBw.Insert(key, value, 60);
+			ulong cas = _iBw.Get(key).Cas;
+			_oRw = _iBw.RemoveCas(key, cas);
+			Assert.IsTrue(_oRw.Success, "Unexpected success of remove cas operation!");
+			Assert.AreEqual(0, _oRw.Status, "Unexpected status of remove cas operation!");
+			Assert.IsNotNull(_oRw.Message, "Message was null!");
+			Assert.AreEqual(null, _oRw.Value, "Unexpected value of remove cas operation!");
+			Assert.AreEqual(null, _iBw.Get(key).Value, "Unexpected value of remove cas operation!");
+		}
+
+		[TestMethod]
+		public void TestBucketRemoveCas2()
+		{
+			string key = "remove_cas_2" + Environment.TickCount;
+			string value1 = "value1";
+			string value2 = "value2";
+			_iBw.Insert(key, value1, 60);
+			ulong cas = _iBw.Get(key).Cas;
+			_iBw.Upsert(key, value2, 60);
+			_oRw = _iBw.RemoveCas(key, cas);
+			Assert.IsFalse(_oRw.Success, "Unexpected success of remove cas operation!");
+			Assert.AreEqual(2, _oRw.Status, "Unexpected status of remove cas operation!");
+			Assert.IsNotNull(_oRw.Message, "Message was null!");
+			Assert.AreEqual(null, _oRw.Value, "Unexpected value of remove cas operation!");
+			Assert.AreEqual(value2, _iBw.Get(key).Value, "Unexpected value of remove cas operation!");
+		}
+
+		[TestMethod]
+		public void TestBucketRemoveCas3()
+		{
+			string key = "remove_cas_3" + Environment.TickCount;
+			_oRw = _iBw.RemoveCas(key, 60);
+			Assert.IsFalse(_oRw.Success, "Unexpected success of remove cas operation!");
+			Assert.AreEqual(1, _oRw.Status, "Unexpected status of remove cas operation!");
+			Assert.IsNotNull(_oRw.Message, "Message was null!");
+			Assert.AreEqual(null, _oRw.Value, "Unexpected value of remove cas operation!");
+			Assert.AreEqual(null, _iBw.Get(key).Value, "Unexpected value of remove cas operation!");
 		}
 
 		[TestMethod]
@@ -268,20 +326,6 @@ namespace Couchbase.ComClient.Test
 			Assert.AreEqual(null, _oRw.Value, "Unexpected value of insert operation!");
 			Assert.IsFalse(_oRw.Success, "Unexpected succes of insert operation!");
 			Assert.AreEqual(1, _oRw.Status, "Unexpected status of insert operation!");
-		}
-
-		[TestMethod]
-		public void TestBucketRemove3()
-		{
-			string key = "remove_3" + Environment.TickCount;
-			var value = 85;
-			_iBw.Insert(key, value, 60);
-			_oRw = _iBw.Remove(key);
-			Assert.IsTrue(_oRw.Success, "Unexpected succes of insert operation!");
-			Assert.AreEqual(0, _oRw.Status, "Unexpected status of insert operation!");
-			Assert.IsNotNull(_oRw.Message, "Message was null!");
-			Assert.AreEqual(null, _oRw.Value, "Unexpected value of insert operation!");
-			Assert.AreEqual(null, _iBw.Get(key).Value, "Unexpected value of insert operation!");
 		}
 
 		[TestMethod]
@@ -324,6 +368,52 @@ namespace Couchbase.ComClient.Test
 			Assert.IsNotNull(_oRw.Message, "Message was null!");
 			Assert.AreEqual(null, _oRw.Value, "Unexpected value of replace operation!");
 			Assert.AreEqual(value2, _iBw.Get(key).Value, "Unexpected value of replace operation!");
+		}
+
+		[TestMethod]
+		public void TestBucketReplaceCas()
+		{
+			string key = "replace_cas_1" + Environment.TickCount;
+			string value = "value";
+			_oRw = _iBw.ReplaceCas(key, value, 60, 60);
+			Assert.IsFalse(_oRw.Success, "Unexpected success of replace cas operation!");
+			Assert.AreEqual(1, _oRw.Status, "Unexpected status of replace cas operation!");
+			Assert.IsNotNull(_oRw.Message, "Message was null!");
+			Assert.AreEqual(null, _oRw.Value, "Unexpected value of replace cas operation!");
+		}
+
+		[TestMethod]
+		public void TestBucketReplaceCas2()
+		{
+			string key = "replace_cas_2" + Environment.TickCount;
+			string value1 = "value1";
+			string value2 = "value2";
+			_iBw.Insert(key, value1, 60);
+			ulong cas = _iBw.Get(key).Cas;
+			_oRw = _iBw.ReplaceCas(key, value2, cas, 60);
+			Assert.IsTrue(_oRw.Success, "Unexpected success of replace cas operation!");
+			Assert.AreEqual(0, _oRw.Status, "Unexpected status of replace cas operation!");
+			Assert.IsNotNull(_oRw.Message, "Message was null!");
+			Assert.AreEqual("", _oRw.Value, "Unexpected value of replace cas operation!");
+			Assert.AreEqual(value2, _iBw.Get(key).Value, "Unexpected value of replace cas operation!");
+		}
+
+		[TestMethod]
+		public void TestBucketReplaceCas3()
+		{
+			string key = "replace_cas_3" + Environment.TickCount;
+			string value1 = "value1";
+			string value2 = "value2";
+			string value3 = "value3";
+			_iBw.Insert(key, value1, 60);
+			ulong cas = _iBw.Get(key).Cas;
+			_iBw.Upsert(key, value2, 60);
+			_oRw = _iBw.ReplaceCas(key, value3, cas, 60);
+			Assert.IsFalse(_oRw.Success, "Unexpected success of replace cas operation!");
+			Assert.AreEqual(2, _oRw.Status, "Unexpected status of replace cas operation!");
+			Assert.IsNotNull(_oRw.Message, "Message was null!");
+			Assert.AreEqual(null, _oRw.Value, "Unexpected value of replace cas operation!");
+			Assert.AreEqual(value2, _iBw.Get(key).Value, "Unexpected value of replace cas operation!");
 		}
 
 		[TestMethod]
