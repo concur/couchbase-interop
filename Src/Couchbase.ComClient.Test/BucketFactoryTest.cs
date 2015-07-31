@@ -31,7 +31,6 @@ namespace Couchbase.ComClient.Test
 		{
 			//this ensures tests don't mess with each other
 			_iBf = new BucketFactory();
-			_iBf.ConfigureCluster("Couchbase.ComClient.Test.dll.config", "local");
 		}
 
 		[ClassCleanup()]
@@ -68,6 +67,7 @@ namespace Couchbase.ComClient.Test
 		[TestMethod]
 		public void TestBucket()
 		{
+			_iBf.ConfigureCluster("Couchbase.ComClient.Test.dll.config", "local");
 			IBucketWrapper bucket = _iBf.GetBucket("default", "local");
 			Assert.IsNotNull(bucket);
 			Assert.IsTrue(_iBf.IsBucketOpen("default"), "Bucket default was not opened");
@@ -97,6 +97,7 @@ namespace Couchbase.ComClient.Test
 		[ExpectedException(typeof(AggregateException), "Could not bootstrap - check inner exceptions for details.")]
 		public void TestBucket4()
 		{
+			_iBf.ConfigureCluster("Couchbase.ComClient.Test.dll.config", "local");
 			_iBf.GetBucket("nonexist");
 		}
 
