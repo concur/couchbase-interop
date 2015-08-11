@@ -93,6 +93,9 @@ namespace Couchbase.ComClient
 			//read new cluster configuration and create new instance
 			var configFile = ConfigurationManager.OpenMappedMachineConfiguration(new ConfigurationFileMap(configPath));
 			var clientConfig = new ClientConfiguration((CouchbaseClientSection)configFile.GetSection(sectionName));
+			//override the transcoder setting to unwrap object on COM API
+			clientConfig.Transcoder = () => new ObjectUnwrappingTranscoder();
+			
 			var cluster = new Cluster(clientConfig);
 
 			ClusterInfo oldCluster = null;

@@ -84,14 +84,7 @@ namespace Couchbase.ComClient
 
 		public OperationResultWrapper Insert(string key, object value, uint expiration = 0)
 		{
-			if (value != null && value.GetType() == typeof(string))
-			{
-				return OperationResultWrapper.Create(m_bucket.Insert<string>(key, (string)value, expiration));
-			}
-			else
-			{
-				return OperationResultWrapper.Create(m_bucket.Insert<object>(key, value, expiration));
-			}
+			return OperationResultWrapper.Create(m_bucket.Insert<object>(key, value, expiration));
 		}
 
 		public OperationResultWrapper Remove(string key)
@@ -106,50 +99,22 @@ namespace Couchbase.ComClient
 
 		public OperationResultWrapper Replace(string key, object value, uint expiration = 0)
 		{
-			if (value != null && value.GetType() == typeof(string))
-			{
-				return OperationResultWrapper.Create(m_bucket.Replace<string>(key, (string)value, expiration));
-			}
-			else
-			{
-				return OperationResultWrapper.Create(m_bucket.Replace<object>(key, value, expiration));
-			}
+			return OperationResultWrapper.Create(m_bucket.Replace<object>(key, value, expiration));
 		}
 
 		public OperationResultWrapper ReplaceCas(string key, object value, ulong cas, uint expiration = 0)
 		{
-			if (value != null && value.GetType() == typeof(string))
-			{
-				return OperationResultWrapper.Create(m_bucket.Replace<string>(key, (string)value, cas, expiration));
-			}
-			else
-			{
-				return OperationResultWrapper.Create(m_bucket.Replace<object>(key, value, cas, expiration));
-			}
+			return OperationResultWrapper.Create(m_bucket.Replace<object>(key, value, cas, expiration));
 		}
 
 		public OperationResultWrapper Upsert(string key, object value, uint expiration = 0)
 		{
-			if (value != null && value.GetType() == typeof(string))
-			{
-				return OperationResultWrapper.Create(m_bucket.Upsert<string>(key, (string)value, expiration));
-			}
-			else
-			{
-				return OperationResultWrapper.Create(m_bucket.Upsert<object>(key, value, expiration));
-			}
+			return OperationResultWrapper.Create(m_bucket.Upsert<object>(key, value, expiration));
 		}
 
 		public OperationResultWrapper UpsertCas(string key, object value, ulong cas, uint expiration = 0)
 		{
-			if (value != null && value.GetType() == typeof(string))
-			{
-				return OperationResultWrapper.Create(m_bucket.Upsert<string>(key, (string)value, cas, expiration));
-			}
-			else
-			{
-				return OperationResultWrapper.Create(m_bucket.Upsert<object>(key, value, cas, expiration));
-			}
+			return OperationResultWrapper.Create(m_bucket.Upsert<object>(key, value, cas, expiration));
 		}
 
 		public OperationResultWrapper Append(string key, string value)
