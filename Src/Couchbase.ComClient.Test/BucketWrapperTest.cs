@@ -17,6 +17,7 @@
  * ************************************************************/
 
 using System;
+using Couchbase.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Couchbase.ComClient.Test
@@ -57,7 +58,7 @@ namespace Couchbase.ComClient.Test
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentNullException))]
+		[ExpectedException(typeof(MissingKeyException))]
 		public void TestBucketInsert2()
 		{
 			_iBw.Insert(null, "test_value", 60);
